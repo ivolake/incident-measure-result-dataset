@@ -24,9 +24,10 @@ The annotator assigns four grades:
 | 2 | Usable but partial, broad, conditional, or requiring local operational detail. |
 | 3 | Directly applicable, concrete, phase-aligned, and suitable as a strong positive. |
 
-## Five Independent LLM Annotators
+## Five Independent Codex Subagent Annotators
 
-The five files in `data/annotations/llm_panel/` correspond to independent LLM annotator roles:
+The five files in `data/annotations/llm_panel/` correspond to independent
+Codex subagent annotator runs performed in `5.5 xhigh` mode:
 
 - `annotator_a.jsonl`: SOC response fit;
 - `annotator_b.jsonl`: measure applicability;
@@ -34,7 +35,9 @@ The five files in `data/annotations/llm_panel/` correspond to independent LLM an
 - `annotator_d.jsonl`: conservative strict-positive check;
 - `annotator_e.jsonl`: negative-control oriented review.
 
-Each annotator saw the same review queue and produced a separate file. Annotators did not read one another's labels.
+Each annotator saw the same review queue and produced a separate file.
+Annotators did not read one another's labels. Codex app build/version was not
+captured in the dataset records.
 
 ## Blinding
 
@@ -55,7 +58,9 @@ Final labels in `data/dataset/relevance_annotations.jsonl` were produced from th
 median_with_conservative_disagreement_downgrade_v1
 ```
 
-The policy favors conservative downgrading when a measure is broad, conditional, mismatched to the response phase, or lacks a direct operational action.
+The policy favors conservative downgrading when a measure is broad,
+conditional, mismatched to the response phase, or lacks a direct operational
+action.
 
 ## Evidence Fields
 

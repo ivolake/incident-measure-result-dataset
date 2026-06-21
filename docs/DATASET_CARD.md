@@ -50,13 +50,18 @@ The package includes source identifiers and provenance records in `sources.jsonl
 - MITRE ATT&CK mitigation descriptions;
 - MITRE D3FEND-style defense technique descriptions;
 - RE&CT-style response action descriptions;
-- internal LLM-panel annotation and adjudication records.
+- Codex subagent annotation and adjudication records.
 
 The repository preserves source locators and hashes where available.
 
 ## Annotation Method
 
-Five independent LLM annotators evaluated the same blinded incident-measure review queue. The review queue hid model outputs, prior candidate labels, and sampling reasons. Final labels were produced by median aggregation with conservative downgrade rules for disagreement and incomplete strict applicability.
+Five independent Codex subagent annotators evaluated the same blinded
+incident-measure review queue in `5.5 xhigh` mode. The review queue hid model
+outputs, prior candidate labels, sampling reasons, and final adjudication
+decisions. Final labels were produced by median aggregation with conservative
+downgrade rules for disagreement and incomplete strict applicability. Codex app
+build/version was not captured in the dataset records.
 
 Agreement summary:
 
@@ -79,6 +84,9 @@ The dataset is too small for a final production model decision by itself. It is 
 
 Each query currently has 20 judged candidate measures from the 25-measure catalog. Unjudged pairs should not be treated as expert-verified negatives.
 
+Baseline results for BM25, masked BM25, and zero-shot dense retrieval are
+summarized in `docs/BASELINES.md`.
+
 ## Prohibited Uses
 
 The package policy forbids:
@@ -91,7 +99,7 @@ The package policy forbids:
 
 ## Known Limitations
 
-- The labels come from an internal LLM panel, not from external human experts.
+- The labels come from a Codex subagent panel, not from external human experts.
 - The corpus contains only 30 incidents and 25 candidate measures.
 - Strict positives are rare: only two labels have grade 3.
 - The measure catalog is not a complete SOC playbook.

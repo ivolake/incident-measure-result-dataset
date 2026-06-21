@@ -1,0 +1,58 @@
+{
+  "schema_version": "baseline_summary_v1",
+  "dataset": {
+    "query_count": 30,
+    "measure_count": 25,
+    "judged_pair_count": 600,
+    "label_type": "adjudicated_candidate_labels"
+  },
+  "source_note": "Prior internal evaluation run on the same 30-query / 25-measure adjudicated candidate dataset. Internal project names, run identifiers, and model artifacts are intentionally omitted.",
+  "metrics": [
+    "graded_ndcg@5",
+    "usable_recall@5",
+    "usable_mrr@5"
+  ],
+  "baselines": [
+    {
+      "method": "BM25",
+      "model_or_setup": "raw lexical baseline",
+      "trained_on_this_dataset": false,
+      "graded_ndcg@5": 0.349872,
+      "usable_recall@5": 0.41834,
+      "usable_mrr@5": 0.391667,
+      "note": "Dependency-free lexical baseline."
+    },
+    {
+      "method": "Masked BM25",
+      "model_or_setup": "lexical baseline with leakage-prone fields masked",
+      "trained_on_this_dataset": false,
+      "graded_ndcg@5": 0.349872,
+      "usable_recall@5": 0.41834,
+      "usable_mrr@5": 0.391667,
+      "note": "Matches BM25 on this public model-facing package."
+    },
+    {
+      "method": "Zero-shot EmbeddingGemma",
+      "model_or_setup": "google/embeddinggemma-300m",
+      "trained_on_this_dataset": false,
+      "graded_ndcg@5": 0.317921,
+      "usable_recall@5": 0.220459,
+      "usable_mrr@5": 0.445833,
+      "note": "Off-the-shelf dense baseline."
+    },
+    {
+      "method": "Zero-shot multilingual E5",
+      "model_or_setup": "intfloat/multilingual-e5-base",
+      "trained_on_this_dataset": false,
+      "graded_ndcg@5": 0.158707,
+      "usable_recall@5": 0.125568,
+      "usable_mrr@5": 0.128472,
+      "note": "Off-the-shelf dense baseline."
+    }
+  ],
+  "excluded": {
+    "training_based_runs": "Excluded from the public baseline table.",
+    "stored_predictions": "Not included.",
+    "model_artifacts": "Not included."
+  }
+}
