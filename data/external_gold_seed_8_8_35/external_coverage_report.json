@@ -1,0 +1,54 @@
+{
+  "report_schema_version": "external_coverage_report_v1",
+  "status": "passed",
+  "source_role_counts": {
+    "measure_corpus": 3,
+    "query_only": 2,
+    "silver": 1,
+    "gold": 1
+  },
+  "query_count": 30,
+  "measure_count": 25,
+  "annotation_count": 600,
+  "novelty_counts": {
+    "unseen_cluster": 25
+  },
+  "measure_concreteness_counts": {
+    "non_measure": 0,
+    "partial_action": 18,
+    "reference_only": 0,
+    "specific_action": 7
+  },
+  "attack_coverage": {},
+  "defense_coverage": {
+    "user_training": 1,
+    "privileged_account_management": 1,
+    "audit": 1,
+    "antivirus_antimalware": 1,
+    "update_software": 1,
+    "detect": 4,
+    "isolate": 3,
+    "deceive": 2,
+    "evict": 3,
+    "restore": 1,
+    "containment": 5,
+    "eradication": 1,
+    "recovery": 1
+  },
+  "response_phase_coverage": {
+    "prevention_or_hardening": 5,
+    "detect": 4,
+    "isolate": 3,
+    "deceive": 2,
+    "evict": 3,
+    "restore": 1,
+    "containment": 5,
+    "eradication": 1,
+    "recovery": 1
+  },
+  "limitations": [
+    "Gold-слой согласован по пяти независимым разметкам LLM-субагентов.",
+    "Это не внешняя человеческая экспертная панель; это ограничение нужно явно указывать.",
+    "Очередь разметки скрывает выходы моделей, прежние серебряные оценки и причины отбора пар."
+  ]
+}

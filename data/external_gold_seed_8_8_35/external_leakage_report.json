@@ -1,0 +1,16 @@
+{
+  "report_schema_version": "external_leakage_report_v1",
+  "status": "passed",
+  "training_forbidden": true,
+  "tuning_forbidden": true,
+  "hard_negative_mining_forbidden": true,
+  "prompt_tuning_forbidden": true,
+  "hyperparameter_tuning_forbidden": true,
+  "checked_training_inventory": true,
+  "novelty_unit": "measure_cluster_id",
+  "duplicate_measure_count": 0,
+  "near_duplicate_measure_count": 0,
+  "query_recommendation_text_findings": 0,
+  "identifier_shortcut_risk_count": 0,
+  "findings": []
+}

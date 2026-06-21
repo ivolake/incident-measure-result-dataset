@@ -1,0 +1,92 @@
+{
+  "package_id": "external-gold-seed-8-8-35",
+  "schema_version": "external_eval_v1",
+  "created_at": "2026-06-21",
+  "description": "Согласованный gold-кандидат, собранный из пяти независимых разметок LLM-субагентов по очереди проверки 8.8.35.",
+  "files": {
+    "external_eval_manifest.json": "external_eval_manifest.json",
+    "external_sources.jsonl": "external_sources.jsonl",
+    "external_queries.jsonl": "external_queries.jsonl",
+    "external_measure_corpus.jsonl": "external_measure_corpus.jsonl",
+    "external_attack_defense_mappings.jsonl": "external_attack_defense_mappings.jsonl",
+    "external_relevance_annotations.jsonl": "external_relevance_annotations.jsonl",
+    "external_leakage_report.json": "external_leakage_report.json",
+    "external_coverage_report.json": "external_coverage_report.json"
+  },
+  "file_hashes": {
+    "external_sources.jsonl": "31218201e5ef880df367d1f87b91d090c6a98254285ea28c90edb41cd41a7001",
+    "external_queries.jsonl": "fc57699562bdd44d823967636db6e634834e507e63ad5b481e49ccb66cba0d09",
+    "external_measure_corpus.jsonl": "70c372027ab71574306436d96c5e6e2337590f3e2b8cc6e704fcef0a7f22503d",
+    "external_attack_defense_mappings.jsonl": "15d2231ed2fe92473b7df334cd5a527f81924a9964cbd96416458eee538eae48",
+    "external_relevance_annotations.jsonl": "04e390fef17643d40af4cb6716a5849c69c76d5b15208db9087d7e91d1beb746",
+    "external_leakage_report.json": "19047042e7749228f5241bcc053f9946038307fd59b1cf0431b173eeb32996b8",
+    "external_coverage_report.json": "c31b4bf181df36ab21fc19285b482a6d4313eed47288b9ea70a94e4786ecfb3b"
+  },
+  "source_roles": [
+    "gold",
+    "silver",
+    "taxonomy_only",
+    "query_only",
+    "measure_corpus",
+    "reject"
+  ],
+  "allowed_uses": [
+    "evaluation",
+    "diagnostic"
+  ],
+  "training_forbidden": true,
+  "fine_tuning_forbidden": true,
+  "hard_negative_mining_forbidden": true,
+  "prompt_tuning_forbidden": true,
+  "hyperparameter_tuning_forbidden": true,
+  "training_measure_inventory_ref": "docs/development_diary/2026-06-14-cold-start-unseen-measures.md",
+  "metric_policy": {
+    "refuse_metrics_without_relevance_annotations": true,
+    "split_by_source_role": true,
+    "source_extracted_text_required": true,
+    "forbid_semantic_paraphrase": true,
+    "source_extracted_measure_concreteness_required": true,
+    "grade_3_requires_specific_action": true,
+    "reference_only_max_relevance_grade": 1,
+    "partial_action_max_relevance_grade": 2,
+    "require_gold_for_scientific_claims": true,
+    "gold_protocol_required": true,
+    "min_independent_gold_annotators": 5,
+    "model_outputs_hidden_from_annotators": true,
+    "require_gold_grade_3": true,
+    "require_gold_negative_grade": true,
+    "strict_binary_positive_grade": 3,
+    "usable_positive_min_grade": 2,
+    "taxonomy_only_metrics_are_diagnostic": true,
+    "model_input_contract_required": true,
+    "forbidden_model_input_query_value_keys": [
+      "attack_id",
+      "cve",
+      "cve_id",
+      "cveid",
+      "defense_id",
+      "d3fend_id",
+      "ghsa",
+      "identifier",
+      "mitre_id",
+      "product",
+      "source_locator",
+      "source_record",
+      "source_record_kind",
+      "source_url",
+      "vendor",
+      "vendor_project",
+      "vulnerability_name",
+      "vulnerabilityname"
+    ],
+    "gold_adjudication_scheme": "median_with_conservative_disagreement_downgrade_v1",
+    "gold_protocol_version": "external_gold_annotation_v1_subagent_panel_8_8_35",
+    "human_expert_panel": false,
+    "llm_subagent_panel": true
+  },
+  "limitations": [
+    "Пакет является внутренним проектным gold-кандидатом, а не результатом внешней человеческой экспертной панели.",
+    "Для сильных научных выводов это ограничение нужно явно раскрывать.",
+    "Выходы моделей и прежние серебряные оценки были скрыты от разметчиков."
+  ]
+}

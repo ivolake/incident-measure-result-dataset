@@ -1,0 +1,154 @@
+{
+  "report_schema_version": "external_gold_agreement_report_v1",
+  "package_root": "examples\\external_eval\\external_gold_seed_8_8_35",
+  "review_task_count": 600,
+  "annotator_count": 5,
+  "annotator_ids": [
+    "subagent_a_soc_response",
+    "subagent_b_measure_applicability",
+    "subagent_c_phase_fit",
+    "subagent_d_conservative_strict_positive",
+    "subagent_e_negative_control"
+  ],
+  "annotator_grade_counts": {
+    "subagent_a_soc_response": {
+      "0": 411,
+      "1": 69,
+      "2": 94,
+      "3": 26
+    },
+    "subagent_b_measure_applicability": {
+      "0": 465,
+      "1": 53,
+      "2": 79,
+      "3": 3
+    },
+    "subagent_c_phase_fit": {
+      "0": 411,
+      "1": 85,
+      "2": 83,
+      "3": 21
+    },
+    "subagent_d_conservative_strict_positive": {
+      "0": 447,
+      "1": 62,
+      "2": 69,
+      "3": 22
+    },
+    "subagent_e_negative_control": {
+      "0": 429,
+      "1": 83,
+      "2": 74,
+      "3": 14
+    }
+  },
+  "final_grade_counts": {
+    "0": 428,
+    "1": 82,
+    "2": 88,
+    "3": 2
+  },
+  "agreement": {
+    "pairwise": [
+      {
+        "annotator_a": "subagent_a_soc_response",
+        "annotator_b": "subagent_b_measure_applicability",
+        "exact_agreement": 0.768333,
+        "within_one_grade_agreement": 0.946667,
+        "spearman_correlation": 0.677939,
+        "weighted_kappa_quadratic": 0.680466
+      },
+      {
+        "annotator_a": "subagent_a_soc_response",
+        "annotator_b": "subagent_c_phase_fit",
+        "exact_agreement": 0.836667,
+        "within_one_grade_agreement": 0.991667,
+        "spearman_correlation": 0.857053,
+        "weighted_kappa_quadratic": 0.879062
+      },
+      {
+        "annotator_a": "subagent_a_soc_response",
+        "annotator_b": "subagent_d_conservative_strict_positive",
+        "exact_agreement": 0.793333,
+        "within_one_grade_agreement": 0.983333,
+        "spearman_correlation": 0.827384,
+        "weighted_kappa_quadratic": 0.826791
+      },
+      {
+        "annotator_a": "subagent_a_soc_response",
+        "annotator_b": "subagent_e_negative_control",
+        "exact_agreement": 0.793333,
+        "within_one_grade_agreement": 0.98,
+        "spearman_correlation": 0.8291,
+        "weighted_kappa_quadratic": 0.818006
+      },
+      {
+        "annotator_a": "subagent_b_measure_applicability",
+        "annotator_b": "subagent_c_phase_fit",
+        "exact_agreement": 0.793333,
+        "within_one_grade_agreement": 0.953333,
+        "spearman_correlation": 0.720094,
+        "weighted_kappa_quadratic": 0.704561
+      },
+      {
+        "annotator_a": "subagent_b_measure_applicability",
+        "annotator_b": "subagent_d_conservative_strict_positive",
+        "exact_agreement": 0.825,
+        "within_one_grade_agreement": 0.97,
+        "spearman_correlation": 0.762365,
+        "weighted_kappa_quadratic": 0.777456
+      },
+      {
+        "annotator_a": "subagent_b_measure_applicability",
+        "annotator_b": "subagent_e_negative_control",
+        "exact_agreement": 0.803333,
+        "within_one_grade_agreement": 0.978333,
+        "spearman_correlation": 0.746112,
+        "weighted_kappa_quadratic": 0.77597
+      },
+      {
+        "annotator_a": "subagent_c_phase_fit",
+        "annotator_b": "subagent_d_conservative_strict_positive",
+        "exact_agreement": 0.836667,
+        "within_one_grade_agreement": 0.983333,
+        "spearman_correlation": 0.847167,
+        "weighted_kappa_quadratic": 0.851781
+      },
+      {
+        "annotator_a": "subagent_c_phase_fit",
+        "annotator_b": "subagent_e_negative_control",
+        "exact_agreement": 0.856667,
+        "within_one_grade_agreement": 0.981667,
+        "spearman_correlation": 0.871584,
+        "weighted_kappa_quadratic": 0.855803
+      },
+      {
+        "annotator_a": "subagent_d_conservative_strict_positive",
+        "annotator_b": "subagent_e_negative_control",
+        "exact_agreement": 0.86,
+        "within_one_grade_agreement": 0.996667,
+        "spearman_correlation": 0.84276,
+        "weighted_kappa_quadratic": 0.881092
+      }
+    ],
+    "fleiss_kappa": 0.590665,
+    "krippendorff_alpha_ordinal": 0.807456,
+    "kendall_w_by_query_weighted_mean": 0.401724
+  },
+  "adjudication": {
+    "scheme": "median_with_conservative_disagreement_downgrade_v1",
+    "disagreement_counts": {
+      "low": 551,
+      "moderate": 26,
+      "strong": 23
+    },
+    "strong_disagreement_count": 23,
+    "strict_positive_count": 2,
+    "negative_or_low_count": 510
+  },
+  "limitations": [
+    "Панель состоит из LLM-субагентов, а не из внешних людей-экспертов.",
+    "Метрики согласованности измеряют устойчивость этой панели, а не объективную истинность оценок.",
+    "До отдельного человеческого аудита пакет нужно описывать как gold-кандидат."
+  ]
+}
