@@ -64,6 +64,21 @@ For evaluation, use:
 
 There are only two strict positives, so strict-positive metrics are unstable and should not be the only decision criterion.
 
+## How The Dataset Was Built
+
+The model-facing text is source-derived, not newly generated for this repository:
+
+- `queries.jsonl` contains 30 incident summaries from VCDB validated incident records.
+- `measure_corpus.jsonl` contains 25 candidate measure descriptions from MITRE ATT&CK mitigations, MITRE D3FEND defensive techniques, and ATC RE&CT response actions.
+- Incident and measure text fields are verbatim or normalized source text, with source locators and SHA-256 hashes preserved where available.
+- The repository did not generate new incident prose or new measure prose for model input.
+
+The judged `incident -> candidate measure` pairs were assembled into a blinded review queue. Each selected incident received 20 judged candidate measures from the 25-measure catalog. Candidate selection used audit-only candidate signals and response-phase coverage, but the selection reasons were hidden from annotators and are not model inputs.
+
+The annotation layer is repository-created: Codex subagents judged the selected pairs, and deterministic adjudication produced the final `relevance_grade` labels. The source datasets supply text and provenance; Codex supplied the annotation judgments and the repository logic supplied the candidate-pair selection and final aggregation.
+
+Unjudged query-measure pairs are not negatives.
+
 ## Quick Start
 
 Create and activate a virtual environment:
@@ -116,11 +131,30 @@ These results come from a prior internal evaluation run on the same 30-query / 2
 
 Dense baselines are off-the-shelf / zero-shot. No fine-tuning, hard-negative mining, prompt tuning, or hyperparameter tuning on this dataset was used for the public baseline table.
 
-## Annotation Provenance
+## Annotation And Adjudication
 
-The label layer was produced by five independent Codex subagent annotators using `5.5 xhigh` mode. Each annotator reviewed the same blinded queue and wrote an independent file. The queue hid model outputs, prior candidate labels, pair-selection reasons, and final adjudication decisions.
+The label layer was produced by five independent Codex subagent annotators using `5.5 xhigh` mode. Each annotator reviewed the same blinded queue and wrote an independent file. The queue hid model outputs, prior candidate labels, pair-selection reasons, other annotators' decisions, and final adjudication decisions.
 
-Final labels were produced by deterministic median aggregation with conservative downgrade rules for broad, conditional, phase-mismatched, or insufficiently direct measures. Codex app build/version was not captured in the dataset records.
+Each annotator produced:
+
+- `relevance_grade`;
+- `incident_fit_grade`;
+- `phase_fit_grade`;
+- `measure_applicability_grade`;
+- `grade3_rule_satisfied`;
+- downgrade and non-applicability reasons.
+
+Final labels were produced by deterministic median aggregation with conservative downgrade rules:
+
+1. Compute the median of the five `relevance_grade` values.
+2. Compute medians for `incident_fit_grade`, `phase_fit_grade`, and `measure_applicability_grade`.
+3. Cap the initial final grade by the weakest median subgrade.
+4. If annotator disagreement is strong and the candidate final grade is `>= 2`, downgrade by one level.
+5. Allow final grade `3` only when at least 4 of 5 annotators gave `3` and all median subgrades are `3`.
+6. Apply measure-concreteness caps: `specific_action <= 3`, `partial_action <= 2`, `reference_only <= 1`, `non_measure <= 0`.
+7. Preserve merged downgrade and non-applicability reasons for audit. These fields are not model inputs.
+
+Codex app build/version was not captured in the dataset records.
 
 ## Repository Layout
 
