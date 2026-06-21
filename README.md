@@ -20,7 +20,7 @@ The dataset is designed for diagnostic cold-start ranking evaluation. A ranking 
 ## What This Is
 
 - 30 source-derived cybersecurity incident descriptions.
-- 25 source-derived or source-normalized candidate response measures.
+- 25 source-derived or source-normalized candidate response measures from a mixed response/defense catalog.
 - 600 adjudicated labels for judged incident-measure pairs.
 - Five independent Codex subagent annotator files produced in `5.5 xhigh` mode.
 - Deterministic adjudication over the five annotator files.
@@ -47,6 +47,15 @@ Use it as a compact evaluation seed for regression checks, ranking diagnostics, 
 | Independent annotators | 5 |
 | Grade scale | 0..3 |
 
+Source composition:
+
+| Layer | Source family | Count |
+|---|---|---:|
+| Incident queries | VCDB validated incident summaries | 30 |
+| Candidate measures | ATC RE&CT response actions | 7 |
+| Candidate measures | MITRE D3FEND defensive techniques | 13 |
+| Candidate measures | MITRE ATT&CK mitigations | 5 |
+
 Label distribution:
 
 | Grade | Count |
@@ -72,6 +81,8 @@ The model-facing text is source-derived, not newly generated for this repository
 - `measure_corpus.jsonl` contains 25 candidate measure descriptions from MITRE ATT&CK mitigations, MITRE D3FEND defensive techniques, and ATC RE&CT response actions.
 - Incident and measure text fields are verbatim or normalized source text, with source locators and SHA-256 hashes preserved where available.
 - The repository did not generate new incident prose or new measure prose for model input.
+
+The measure catalog is intentionally mixed. RE&CT contributes concrete SOC response actions, D3FEND contributes defensive techniques, and ATT&CK contributes broader mitigation controls. This makes the task more than topical text matching: a ranker has to prefer measures that are practically applicable to the incident and response phase, while not over-ranking broad or merely adjacent controls.
 
 The judged `incident -> candidate measure` pairs were assembled into a blinded review queue. Each selected incident received 20 judged candidate measures from the 25-measure catalog. Candidate selection used audit-only candidate signals and response-phase coverage, but the selection reasons were hidden from annotators and are not model inputs.
 
