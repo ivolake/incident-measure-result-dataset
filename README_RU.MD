@@ -1,4 +1,4 @@
-# Набор данных для оценки релевантности мер инцидентам
+# Набор данных для оценки релевантности мер реагирования инцидентам
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Queries](https://img.shields.io/badge/queries-30-informational)
@@ -7,92 +7,92 @@
 ![Annotation](https://img.shields.io/badge/annotation-LLM--panel-orange)
 ![Data Notice](https://img.shields.io/badge/data-notice-lightgrey)
 
-Небольшой публичный evaluation seed для ранжирования мер реагирования на киберинциденты.
+Небольшой публичный набор данных для диагностической оценки методов, которые ранжируют меры реагирования и защиты по описанию киберинцидента.
 
-Задача простая:
+Задача:
 
 ```text
-описание инцидента + описание кандидатной меры реагирования -> ранжированный список мер
+описание инцидента + описание кандидатной меры -> ранжированный список мер
 ```
 
-Датасет предназначен для диагностической cold-start оценки ранжирования. Метод ранжирования получает только текст инцидента и текст кандидатной меры, а затем ранжирует каталог из 25 мер. Нельзя использовать label-поля, audit-поля, source locators, предшествующую кандидатную метаинформацию или annotation artifacts как вход модели.
+Набор предназначен для холодной диагностической оценки. Метод получает только текст инцидента и текст кандидатной меры, после чего ранжирует каталог из 25 мер. Поля разметки, аудита, сведения об источниках, предшествующие признаки отбора и материалы аннотации не входят в модельный вход.
 
-## Что Это
+## Что Входит
 
-- 30 source-derived описаний киберинцидентов.
-- 25 source-derived или source-normalized кандидатных мер из смешанного response/defense каталога.
-- 600 согласованных labels для размеченных пар `инцидент -> мера`.
-- Пять независимых файлов Codex subagent annotators, полученных в режиме `5.5 xhigh`.
-- Детерминированная adjudication поверх пяти файлов аннотаторов.
-- Утилиты для валидации, BM25-ранжирования, опционального embedding-ранжирования и расчета метрик.
+- 30 описаний киберинцидентов, извлечённых из открытых источников.
+- 25 кандидатных мер из смешанного каталога реагирования и защиты.
+- 600 согласованных оценок релевантности для размеченных пар `инцидент -> мера`.
+- Пять независимых файлов аннотации Codex-субагентов, выполненных в режиме `5.5 xhigh`.
+- Детерминированное согласование пяти независимых файлов аннотации.
+- Утилиты для проверки набора, BM25-ранжирования, опционального embedding-ранжирования и расчёта метрик.
 
 ## Чем Это Не Является
 
-- Это не human expert benchmark.
-- Это не датасет для training, fine-tuning, hard-negative mining, prompt tuning или hyperparameter tuning.
-- Это не полный SOC playbook и не production benchmark для incident response.
-- Это не доказательство, что метод операционно безопасен без отдельной экспертной проверки.
+- Это не эталонная разметка внешних экспертов.
+- Это не набор для обучения, дообучения, подбора hard negative, prompt tuning или подбора гиперпараметров.
+- Это не полный плейбук SOC и не производственный эталон для реагирования на инциденты.
+- Это не доказательство операционной безопасности метода без отдельной экспертной проверки.
 
-Используйте его как компактный evaluation seed для regression checks, ranking diagnostics, method comparison и error analysis.
+Набор подходит для проверок регрессии, диагностики ранжирования, сравнения методов и анализа ошибок.
 
-## Датасет Кратко
+## Краткое Описание
 
 | Показатель | Значение |
 |---|---:|
-| Incident queries | 30 |
-| Candidate measures | 25 |
-| Judged pairs | 600 |
-| Possible query-measure pairs | 750 |
-| Unjudged pairs | 150 |
-| Independent annotators | 5 |
-| Grade scale | 0..3 |
+| Описания инцидентов | 30 |
+| Кандидатные меры | 25 |
+| Размеченные пары | 600 |
+| Все возможные пары `инцидент -> мера` | 750 |
+| Неразмеченные пары | 150 |
+| Независимые аннотаторы | 5 |
+| Шкала оценки | 0..3 |
 
 Состав источников:
 
-| Слой | Семейство источников | Кол-во |
+| Слой | Семейство источников | Количество |
 |---|---|---:|
-| Incident queries | VCDB validated incident summaries | 30 |
-| Candidate measures | ATC RE&CT response actions | 7 |
-| Candidate measures | MITRE D3FEND defensive techniques | 13 |
-| Candidate measures | MITRE ATT&CK mitigations | 5 |
+| Инциденты | VCDB validated incident summaries | 30 |
+| Кандидатные меры | ATC RE&CT response actions | 7 |
+| Кандидатные меры | MITRE D3FEND defensive techniques | 13 |
+| Кандидатные меры | MITRE ATT&CK mitigations | 5 |
 
-Распределение labels:
+Распределение оценок:
 
-| Grade | Count |
+| Оценка | Количество |
 |---:|---:|
 | 0 | 428 |
 | 1 | 82 |
 | 2 | 88 |
 | 3 | 2 |
 
-Для оценки используйте:
+Для оценки методов используйте:
 
-- graded ranking: полная шкала `0..3`;
-- usable positives: `grade >= 2`;
-- strict positives: `grade == 3`.
+- ранжирование по полной шкале `0..3`;
+- пригодные положительные пары: `grade >= 2`;
+- строгие положительные пары: `grade == 3`.
 
-Строгих положительных labels всего два, поэтому strict-positive метрики нестабильны и не должны быть единственным критерием решения.
+Строгих положительных оценок всего две, поэтому метрики по `grade == 3` нестабильны и не должны быть единственным критерием сравнения.
 
-## Как Собран Датасет
+## Как Собран Набор
 
-Model-facing текст является source-derived, а не заново сгенерированным для этого репозитория:
+Текст, который подаётся модели, взят из источников, а не сгенерирован заново для этого репозитория:
 
-- `queries.jsonl` содержит 30 incident summaries из VCDB validated incident records.
+- `queries.jsonl` содержит 30 кратких описаний инцидентов из VCDB validated incident records.
 - `measure_corpus.jsonl` содержит 25 описаний кандидатных мер из MITRE ATT&CK mitigations, MITRE D3FEND defensive techniques и ATC RE&CT response actions.
-- Текстовые поля инцидентов и мер являются verbatim или normalized source text; source locators и SHA-256 hashes сохранены там, где это доступно.
-- Репозиторий не генерировал новый текст инцидентов или новый текст мер для model input.
+- Текстовые поля инцидентов и мер являются дословным или нормализованным текстом источника; где возможно, сохранены ссылки на источник и SHA-256-хэши.
+- Репозиторий не создавал новый текст инцидентов или мер для модельного входа.
 
-Каталог мер намеренно смешанный. RE&CT дает конкретные SOC response actions, D3FEND дает defensive techniques, а ATT&CK дает более широкие mitigation controls. Поэтому задача проверяет не только тематическое сходство текста: ranker должен предпочитать меры, которые практически применимы к инциденту и фазе реагирования, и не завышать широкие или лишь соседние controls.
+Каталог мер намеренно смешанный. RE&CT даёт конкретные действия SOC, D3FEND — защитные техники, ATT&CK — более широкие меры снижения риска. Поэтому задача проверяет не только тематическое сходство текстов: метод должен предпочитать меры, практически применимые к инциденту и фазе реагирования, и не завышать широкие или лишь смежные меры.
 
-Размеченные пары `incident -> candidate measure` были собраны в blinded review queue. Каждый выбранный инцидент получил 20 размеченных кандидатных мер из каталога на 25 мер. Candidate selection использовал audit-only candidate signals и response-phase coverage, но причины выбора были скрыты от аннотаторов и не являются model inputs.
+Размеченные пары `инцидент -> кандидатная мера` были собраны в слепую очередь проверки. Для каждого выбранного инцидента размечено 20 кандидатных мер из каталога на 25 мер. Отбор кандидатов учитывал служебные признаки и покрытие фаз реагирования, но причины отбора были скрыты от аннотаторов и не являются модельным входом.
 
-Annotation layer создан в этом репозитории: Codex subagents оценили выбранные пары, а deterministic adjudication сформировала финальные `relevance_grade` labels. Source datasets дают текст и provenance; Codex дал annotation judgments; логика репозитория дала candidate-pair selection и финальную агрегацию.
+Слой разметки создан в этом репозитории: Codex-субагенты оценили выбранные пары, а детерминированное согласование сформировало итоговые значения `relevance_grade`. Источники дают текст и происхождение записей; Codex дал независимые оценочные суждения; логика репозитория дала выбор пар и финальную агрегацию.
 
-Unjudged query-measure pairs не являются negative examples.
+Неразмеченные пары не являются отрицательными примерами.
 
 ## Быстрый Старт
 
-Создайте и активируйте virtual environment:
+Создайте и активируйте виртуальное окружение:
 
 ```powershell
 python -m venv .venv
@@ -100,20 +100,20 @@ python -m venv .venv
 python -m pip install -e .[dev]
 ```
 
-Провалидируйте датасет:
+Проверьте набор данных:
 
 ```powershell
 python scripts\validate_dataset.py --dataset data\dataset --annotations data\annotations\llm_panel --out outputs\validation_report.json
 ```
 
-Запустите dependency-free BM25 baseline:
+Запустите базовый метод BM25 без дополнительных зависимостей:
 
 ```powershell
 python scripts\rank_bm25.py --dataset data\dataset --top-k 5 --out outputs\bm25_topk.jsonl
 python scripts\evaluate.py --dataset data\dataset --predictions outputs\bm25_topk.jsonl --out outputs\bm25_metrics.json
 ```
 
-Опциональное embedding ranking требует extra `embeddings`:
+Для embedding-ранжирования нужен дополнительный набор зависимостей `embeddings`:
 
 ```powershell
 python -m pip install -e .[embeddings]
@@ -121,7 +121,7 @@ python scripts\rank_embeddings.py --dataset data\dataset --model sentence-transf
 python scripts\evaluate.py --dataset data\dataset --predictions outputs\miniLM_topk.jsonl --out outputs\miniLM_metrics.json
 ```
 
-Форма через установленную команду:
+Те же действия через установленную команду:
 
 ```powershell
 incident-measure-result validate --dataset data\dataset --annotations data\annotations\llm_panel
@@ -129,51 +129,51 @@ incident-measure-result rank-bm25 --dataset data\dataset --out outputs\bm25_topk
 incident-measure-result evaluate --dataset data\dataset --predictions outputs\bm25_topk.jsonl
 ```
 
-## Baselines
+## Базовые Методы
 
-Эти результаты взяты из prior internal evaluation run на том же 30-query / 25-measure adjudicated candidate dataset. Здесь перечислены только public-safe методы, не обученные на этом датасете. См. `docs/BASELINES.md` для определений и caveats.
+Результаты ниже получены в предыдущем внутреннем прогоне оценки на том же согласованном наборе из 30 инцидентов и 25 мер. В таблицу включены только публично безопасные методы, которые не обучались на этом наборе данных. Определения метрик и ограничения приведены в `docs/BASELINES.md`.
 
-| Method | Model / setup | Trained on this dataset? | graded nDCG@5 | usable recall@5 | usable MRR@5 |
+| Метод | Модель или настройка | Обучался на этом наборе? | graded nDCG@5 | usable recall@5 | usable MRR@5 |
 |---|---|---:|---:|---:|---:|
-| BM25 | raw lexical baseline | No | 0.349872 | 0.418340 | 0.391667 |
-| Masked BM25 | lexical baseline with leakage-prone fields masked | No | 0.349872 | 0.418340 | 0.391667 |
-| Zero-shot EmbeddingGemma | `google/embeddinggemma-300m` | No | 0.317921 | 0.220459 | 0.445833 |
-| Zero-shot multilingual E5 | `intfloat/multilingual-e5-base` | No | 0.158707 | 0.125568 | 0.128472 |
+| BM25 | исходный лексический базовый метод | Нет | 0.349872 | 0.418340 | 0.391667 |
+| Masked BM25 | лексический базовый метод с маскированием полей с риском утечки | Нет | 0.349872 | 0.418340 | 0.391667 |
+| Zero-shot EmbeddingGemma | `google/embeddinggemma-300m` | Нет | 0.317921 | 0.220459 | 0.445833 |
+| Zero-shot multilingual E5 | `intfloat/multilingual-e5-base` | Нет | 0.158707 | 0.125568 | 0.128472 |
 
-Dense baselines являются off-the-shelf / zero-shot. Для публичной baseline-таблицы не использовались fine-tuning, hard-negative mining, prompt tuning или hyperparameter tuning на этом датасете.
+Методы на плотных векторных представлениях использованы как готовые zero-shot модели. Для публичной таблицы базовых методов не применялись дообучение, hard-negative mining, prompt tuning или подбор гиперпараметров на этом наборе данных.
 
-## Annotation And Adjudication
+## Аннотация И Согласование
 
-Label layer получен пятью независимыми Codex subagent annotators в режиме `5.5 xhigh`. Каждый annotator просматривал одну и ту же blinded queue и записывал независимый файл. Очередь скрывала model outputs, prior candidate labels, pair-selection reasons, решения других annotators и финальные adjudication decisions.
+Слой оценок получен пятью независимыми Codex-субагентами в режиме `5.5 xhigh`. Каждый аннотатор просматривал одну и ту же слепую очередь и записывал отдельный файл. Очередь скрывала выходы моделей, предшествующие оценки кандидатов, причины попадания пары в выборку, решения других аннотаторов и итоговые решения согласования.
 
-Каждый annotator заполнял:
+Каждый аннотатор заполнял:
 
 - `relevance_grade`;
 - `incident_fit_grade`;
 - `phase_fit_grade`;
 - `measure_applicability_grade`;
 - `grade3_rule_satisfied`;
-- downgrade и non-applicability reasons.
+- причины понижения и неприменимости.
 
-Финальные labels получены deterministic median aggregation с conservative downgrade rules:
+Итоговые оценки получены детерминированной медианной агрегацией с консервативными правилами понижения:
 
-1. Вычислить медиану пяти значений `relevance_grade`.
-2. Вычислить медианы для `incident_fit_grade`, `phase_fit_grade` и `measure_applicability_grade`.
-3. Ограничить начальную финальную оценку самым слабым median subgrade.
-4. Если disagreement между annotators сильный и кандидатная финальная оценка `>= 2`, понизить ее на один уровень.
-5. Разрешить финальный grade `3` только если минимум 4 из 5 annotators поставили `3` и все median subgrades равны `3`.
-6. Применить caps по measure concreteness: `specific_action <= 3`, `partial_action <= 2`, `reference_only <= 1`, `non_measure <= 0`.
-7. Сохранить merged downgrade и non-applicability reasons для audit. Эти поля не являются model inputs.
+1. Вычисляется медиана пяти значений `relevance_grade`.
+2. Вычисляются медианы для `incident_fit_grade`, `phase_fit_grade` и `measure_applicability_grade`.
+3. Начальная итоговая оценка ограничивается самым слабым медианным подбаллом.
+4. При сильном расхождении между аннотаторами и кандидатной итоговой оценке `>= 2` оценка понижается на один уровень.
+5. Итоговая оценка `3` разрешается только тогда, когда минимум 4 из 5 аннотаторов поставили `3`, а все медианные подбаллы равны `3`.
+6. Применяются ограничения по конкретности меры: `specific_action <= 3`, `partial_action <= 2`, `reference_only <= 1`, `non_measure <= 0`.
+7. Объединённые причины понижения и неприменимости сохраняются для аудита. Эти поля не являются модельным входом.
 
-Codex app build/version не был сохранен в dataset records.
+Версия или сборка приложения Codex не была сохранена в записях набора данных.
 
 ## Структура Репозитория
 
 ```text
 data/
-  dataset/                 # Основной пакет датасета
-  annotations/llm_panel/   # Пять независимых файлов annotators
-  review_audit/            # Blinded review queue и sampling audit
+  dataset/                 # Основной пакет данных
+  annotations/llm_panel/   # Пять независимых файлов аннотации
+  review_audit/            # Слепая очередь проверки и аудит отбора
 docs/
   DATASET_CARD.md
   BASELINES.md
@@ -195,17 +195,17 @@ LICENSE
 
 | Документ | Назначение |
 |---|---|
-| `docs/DATASET_CARD.md` | Scope датасета, размер, label distribution, intended use, limitations. |
-| `docs/BASELINES.md` | Baseline metrics, определения методов и политика исключения методов. |
-| `docs/SCHEMA.md` | Model-facing, label-only, audit-only и provenance fields. |
-| `docs/ANNOTATION_PROTOCOL.md` | Annotation units, Codex subagent setup, blinding, adjudication. |
-| `docs/EVALUATION_GUIDE.md` | Prediction contract и использование метрик. |
-| `docs/PROVENANCE.md` | Source preparation, preserved records, hashes. |
-| `docs/SOURCES_AND_LICENSES.md` | Source families и upstream reuse notes. |
-| `DATA_NOTICE.md` | Практическое data reuse notice. |
+| `docs/DATASET_CARD.md` | Область применения, размер, распределение оценок, назначение и ограничения набора данных. |
+| `docs/BASELINES.md` | Метрики базовых методов, определения методов и политика исключения методов. |
+| `docs/SCHEMA.md` | Поля модельного входа, поля разметки, аудита и происхождения записей. |
+| `docs/ANNOTATION_PROTOCOL.md` | Единицы аннотации, настройка Codex-субагентов, ослепление и согласование. |
+| `docs/EVALUATION_GUIDE.md` | Контракт предсказаний и использование метрик. |
+| `docs/PROVENANCE.md` | Подготовка источников, сохранённые записи и хэши. |
+| `docs/SOURCES_AND_LICENSES.md` | Семейства источников и условия повторного использования. |
+| `DATA_NOTICE.md` | Практическое уведомление об использовании данных. |
 
 ## Цитирование И Повторное Использование
 
-Формальная citation пока не назначена. Если вы используете этот репозиторий, укажите repository URL и сохраните provenance files.
+Формальная ссылка для цитирования пока не назначена. Если вы используете этот репозиторий, укажите URL репозитория и сохраните файлы происхождения данных.
 
-Code и repository documentation покрываются `LICENSE`. Dataset files в `data/` содержат source-derived records и подпадают под upstream notices, кратко описанные в `DATA_NOTICE.md` и `docs/SOURCES_AND_LICENSES.md`. Сохраняйте attribution, upstream notices и source provenance при повторном распространении датасета или производных records.
+Код и документация репозитория покрываются `LICENSE`. Файлы данных в `data/` содержат записи, производные от внешних источников, и подпадают под условия исходных источников, кратко описанные в `DATA_NOTICE.md` и `docs/SOURCES_AND_LICENSES.md`. При распространении набора данных или производных записей сохраняйте указание авторства, уведомления исходных источников и сведения о происхождении данных.
