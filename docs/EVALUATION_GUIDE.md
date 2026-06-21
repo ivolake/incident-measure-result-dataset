@@ -1,27 +1,27 @@
-﻿# Evaluation Guide
+# Evaluation Guide
 
-## Ranking contract
+## Ranking Contract
 
 A valid ranker may read only:
 
-- `query_id` and `query_text` from `external_queries.jsonl`;
-- `measure_id` and `measure_text` from `external_measure_corpus.jsonl`.
+- `query_id` and `query_text` from `data/dataset/queries.jsonl`;
+- `measure_id` and `measure_text` from `data/dataset/measure_corpus.jsonl`.
 
 A valid ranker must not read:
 
 - `relevance_grade`;
 - annotator files;
 - adjudication decisions;
-- model outputs;
-- sampling audit fields;
+- review-audit fields;
+- sampling reasons;
 - downgrade reasons;
 - source labels that reveal relevance.
 
-## Built-in BM25 baseline
+## Built-In BM25 Baseline
 
 ```powershell
-python scripts\rank_bm25.py --dataset data\external_gold_seed_8_8_35 --top-k 5 --out outputs\bm25_topk.jsonl
-python scripts\evaluate.py --dataset data\external_gold_seed_8_8_35 --predictions outputs\bm25_topk.jsonl --out outputs\bm25_metrics.json
+python scripts\rank_bm25.py --dataset data\dataset --top-k 5 --out outputs\bm25_topk.jsonl
+python scripts\evaluate.py --dataset data\dataset --predictions outputs\bm25_topk.jsonl --out outputs\bm25_metrics.json
 ```
 
 Expected smoke-run metrics:
@@ -30,7 +30,7 @@ Expected smoke-run metrics:
 |---|---:|---:|---:|
 | BM25 | 0.349872 | 0.418340 | 0.391667 |
 
-## Optional embedding ranking
+## Optional Embedding Ranking
 
 Install optional dependencies first:
 
@@ -42,21 +42,31 @@ Run any SentenceTransformers-compatible embedding model:
 
 ```powershell
 python scripts\rank_embeddings.py `
-  --dataset data\external_gold_seed_8_8_35 `
+  --dataset data\dataset `
   --model sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 `
   --top-k 5 `
   --out outputs\miniLM_topk.jsonl
 
-python scripts\evaluate.py --dataset data\external_gold_seed_8_8_35 --predictions outputs\miniLM_topk.jsonl --out outputs\miniLM_metrics.json
+python scripts\evaluate.py --dataset data\dataset --predictions outputs\miniLM_topk.jsonl --out outputs\miniLM_metrics.json
 ```
 
-## Prediction format
+## Prediction Format
 
 The evaluator expects JSONL rows like:
 
 ```json
 {"method":"bm25","query_id":"q_vcdb_...","top_k":[{"rank":1,"measure_id":"m_...","score":12.34}]}
 ```
+
+Prediction validation rejects:
+
+- empty prediction files;
+- unknown `query_id` values;
+- unknown `measure_id` values;
+- duplicate prediction rows for one query;
+- duplicate ranks;
+- duplicate measures in one ranking;
+- non-contiguous ranks.
 
 ## Metrics
 
@@ -69,3 +79,5 @@ The included evaluator computes:
 - query counts for graded, usable, and strict slices.
 
 Because strict positives are rare, do not make a model decision from strict recall alone.
+
+The label set covers 600 judged pairs out of 750 possible query-measure pairs. Report this limitation when comparing methods, especially if a ranker can place unjudged measures in the top results.

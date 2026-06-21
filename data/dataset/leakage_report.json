@@ -1,5 +1,5 @@
 {
-  "report_schema_version": "external_leakage_report_v1",
+  "report_schema_version": "leakage_report_v1",
   "status": "passed",
   "training_forbidden": true,
   "tuning_forbidden": true,

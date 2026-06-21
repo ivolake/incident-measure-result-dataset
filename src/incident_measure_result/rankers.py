@@ -68,8 +68,8 @@ class BM25Ranker:
 
 def rank_bm25(dataset_dir: str | Path, top_k: int = 5) -> list[dict[str, Any]]:
     root = Path(dataset_dir)
-    queries = read_jsonl(root / "external_queries.jsonl")
-    measures = read_jsonl(root / "external_measure_corpus.jsonl")
+    queries = read_jsonl(root / "queries.jsonl")
+    measures = read_jsonl(root / "measure_corpus.jsonl")
     ranker = BM25Ranker(measures)
     return [
         {
@@ -92,8 +92,8 @@ def rank_embeddings(dataset_dir: str | Path, model_name: str, top_k: int = 5, ba
     import numpy as np
 
     root = Path(dataset_dir)
-    queries = read_jsonl(root / "external_queries.jsonl")
-    measures = read_jsonl(root / "external_measure_corpus.jsonl")
+    queries = read_jsonl(root / "queries.jsonl")
+    measures = read_jsonl(root / "measure_corpus.jsonl")
     model = SentenceTransformer(model_name)
     query_texts = [str(query.get("query_text", "")) for query in queries]
     measure_texts = [str(measure.get("measure_text", "")) for measure in measures]

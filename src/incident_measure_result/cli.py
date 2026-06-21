@@ -14,24 +14,24 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     validate = subparsers.add_parser("validate", help="Validate dataset structure")
-    validate.add_argument("--dataset", default="data/external_gold_seed_8_8_35")
-    validate.add_argument("--annotations", default="data/annotations/subagent_annotations")
+    validate.add_argument("--dataset", default="data/dataset")
+    validate.add_argument("--annotations", default="data/annotations/llm_panel")
     validate.add_argument("--out")
 
     bm25 = subparsers.add_parser("rank-bm25", help="Run dependency-free BM25 ranking")
-    bm25.add_argument("--dataset", default="data/external_gold_seed_8_8_35")
+    bm25.add_argument("--dataset", default="data/dataset")
     bm25.add_argument("--top-k", type=int, default=5)
     bm25.add_argument("--out", required=True)
 
     embeddings = subparsers.add_parser("rank-embeddings", help="Run SentenceTransformers embedding ranking")
-    embeddings.add_argument("--dataset", default="data/external_gold_seed_8_8_35")
+    embeddings.add_argument("--dataset", default="data/dataset")
     embeddings.add_argument("--model", required=True)
     embeddings.add_argument("--top-k", type=int, default=5)
     embeddings.add_argument("--batch-size", type=int, default=32)
     embeddings.add_argument("--out", required=True)
 
     evaluate = subparsers.add_parser("evaluate", help="Evaluate top-k predictions")
-    evaluate.add_argument("--dataset", default="data/external_gold_seed_8_8_35")
+    evaluate.add_argument("--dataset", default="data/dataset")
     evaluate.add_argument("--predictions", required=True)
     evaluate.add_argument("--out")
 

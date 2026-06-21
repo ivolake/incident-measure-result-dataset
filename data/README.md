@@ -1,7 +1,7 @@
-﻿# Data Directory
+# Data Directory
 
-- `external_gold_seed_8_8_35/`: main dataset package.
-- `annotations/subagent_annotations/`: five independent LLM annotator files.
-- `review_seed/`: blinded review queue and sampling audit.
+- `dataset/`: main evaluation dataset package.
+- `annotations/llm_panel/`: five independent LLM annotator files.
+- `review_audit/`: blinded review queue and sampling audit.
 
-The main dataset package is the source of truth for evaluation labels. The annotator and review-seed files are provided for transparency and auditability.
+The main dataset package is the source of truth for evaluation labels. The annotator and review-audit files are provided for transparency and auditability.

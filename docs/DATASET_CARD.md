@@ -1,21 +1,21 @@
-﻿# Dataset Card
+# Dataset Card
 
-## Dataset name
+## Dataset Name
 
-Incident-to-Measure Relevance Gold Candidate Dataset.
+Incident-to-Measure Relevance Dataset.
 
-## Dataset version
+## Dataset Version
 
-`external-gold-seed-8-8-35`, created on 2026-06-21.
+`1.0`, created on 2026-06-21.
 
-## Intended task
+## Intended Task
 
 The dataset evaluates ranking systems that map cybersecurity incident descriptions to response or mitigation measures.
 
 Input available to a ranker:
 
-- `query_text`: source-derived incident description;
-- `measure_text`: source-derived or source-normalized response measure description.
+- `query_id` and `query_text` from `data/dataset/queries.jsonl`;
+- `measure_id` and `measure_text` from `data/dataset/measure_corpus.jsonl`.
 
 Target used only for evaluation:
 
@@ -27,11 +27,13 @@ Target used only for evaluation:
 |---|---:|
 | Incident queries | 30 |
 | Candidate measures | 25 |
-| Incident-measure labels | 600 |
+| Judged incident-measure labels | 600 |
+| Possible query-measure pairs | 750 |
+| Unjudged query-measure pairs | 150 |
 | Independent annotator files | 5 |
 | Attack-defense mappings | 162 |
 
-## Label distribution
+## Label Distribution
 
 | Grade | Count |
 |---:|---:|
@@ -40,20 +42,21 @@ Target used only for evaluation:
 | 2 | 88 |
 | 3 | 2 |
 
-## Data sources
+## Data Sources
 
-The package includes source identifiers and provenance records in `external_sources.jsonl`, `external_queries.jsonl`, and `external_measure_corpus.jsonl`. The main source families are:
+The package includes source identifiers and provenance records in `sources.jsonl`, `queries.jsonl`, and `measure_corpus.jsonl`. The main source families are:
 
 - VCDB-style incident summaries used as query texts;
 - MITRE ATT&CK mitigation descriptions;
-- MITRE D3FEND and RE&CT-style response measures;
-- a gold annotation source representing the internal five-annotator LLM panel.
+- MITRE D3FEND-style defense technique descriptions;
+- RE&CT-style response action descriptions;
+- internal LLM-panel annotation and adjudication records.
 
 The repository preserves source locators and hashes where available.
 
-## Annotation method
+## Annotation Method
 
-Five independent LLM annotators evaluated the same blinded incident-measure review queue. The review queue hid model outputs, previous silver labels, and sampling reasons. The final labels were produced by median aggregation with conservative downgrade rules for disagreement and incomplete strict applicability.
+Five independent LLM annotators evaluated the same blinded incident-measure review queue. The review queue hid model outputs, prior candidate labels, and sampling reasons. Final labels were produced by median aggregation with conservative downgrade rules for disagreement and incomplete strict applicability.
 
 Agreement summary:
 
@@ -64,7 +67,7 @@ Agreement summary:
 | Mean Kendall concordance | 0.401724 |
 | Strong disagreements | 23 |
 
-## Recommended evaluation
+## Recommended Evaluation
 
 Use all three views:
 
@@ -74,9 +77,11 @@ Use all three views:
 
 The dataset is too small for a final production model decision by itself. It is suitable for diagnostic evaluation, method comparison, regression checks, and error analysis.
 
-## Prohibited uses
+Each query currently has 20 judged candidate measures from the 25-measure catalog. Unjudged pairs should not be treated as expert-verified negatives.
 
-The original package policy forbids:
+## Prohibited Uses
+
+The package policy forbids:
 
 - model training;
 - fine-tuning;
@@ -84,7 +89,7 @@ The original package policy forbids:
 - prompt tuning;
 - hyperparameter tuning on this dataset.
 
-## Known limitations
+## Known Limitations
 
 - The labels come from an internal LLM panel, not from external human experts.
 - The corpus contains only 30 incidents and 25 candidate measures.

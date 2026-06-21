@@ -1,41 +1,41 @@
 {
-  "report_schema_version": "external_gold_agreement_report_v1",
-  "package_root": "examples\\external_eval\\external_gold_seed_8_8_35",
+  "report_schema_version": "agreement_report_v1",
+  "package_root": "data/dataset",
   "review_task_count": 600,
   "annotator_count": 5,
   "annotator_ids": [
-    "subagent_a_soc_response",
-    "subagent_b_measure_applicability",
-    "subagent_c_phase_fit",
-    "subagent_d_conservative_strict_positive",
-    "subagent_e_negative_control"
+    "annotator_a_soc_response",
+    "annotator_b_measure_applicability",
+    "annotator_c_phase_fit",
+    "annotator_d_conservative_strict_positive",
+    "annotator_e_negative_control"
   ],
   "annotator_grade_counts": {
-    "subagent_a_soc_response": {
+    "annotator_a_soc_response": {
       "0": 411,
       "1": 69,
       "2": 94,
       "3": 26
     },
-    "subagent_b_measure_applicability": {
+    "annotator_b_measure_applicability": {
       "0": 465,
       "1": 53,
       "2": 79,
       "3": 3
     },
-    "subagent_c_phase_fit": {
+    "annotator_c_phase_fit": {
       "0": 411,
       "1": 85,
       "2": 83,
       "3": 21
     },
-    "subagent_d_conservative_strict_positive": {
+    "annotator_d_conservative_strict_positive": {
       "0": 447,
       "1": 62,
       "2": 69,
       "3": 22
     },
-    "subagent_e_negative_control": {
+    "annotator_e_negative_control": {
       "0": 429,
       "1": 83,
       "2": 74,
@@ -51,80 +51,80 @@
   "agreement": {
     "pairwise": [
       {
-        "annotator_a": "subagent_a_soc_response",
-        "annotator_b": "subagent_b_measure_applicability",
+        "annotator_a": "annotator_a_soc_response",
+        "annotator_b": "annotator_b_measure_applicability",
         "exact_agreement": 0.768333,
         "within_one_grade_agreement": 0.946667,
         "spearman_correlation": 0.677939,
         "weighted_kappa_quadratic": 0.680466
       },
       {
-        "annotator_a": "subagent_a_soc_response",
-        "annotator_b": "subagent_c_phase_fit",
+        "annotator_a": "annotator_a_soc_response",
+        "annotator_b": "annotator_c_phase_fit",
         "exact_agreement": 0.836667,
         "within_one_grade_agreement": 0.991667,
         "spearman_correlation": 0.857053,
         "weighted_kappa_quadratic": 0.879062
       },
       {
-        "annotator_a": "subagent_a_soc_response",
-        "annotator_b": "subagent_d_conservative_strict_positive",
+        "annotator_a": "annotator_a_soc_response",
+        "annotator_b": "annotator_d_conservative_strict_positive",
         "exact_agreement": 0.793333,
         "within_one_grade_agreement": 0.983333,
         "spearman_correlation": 0.827384,
         "weighted_kappa_quadratic": 0.826791
       },
       {
-        "annotator_a": "subagent_a_soc_response",
-        "annotator_b": "subagent_e_negative_control",
+        "annotator_a": "annotator_a_soc_response",
+        "annotator_b": "annotator_e_negative_control",
         "exact_agreement": 0.793333,
         "within_one_grade_agreement": 0.98,
         "spearman_correlation": 0.8291,
         "weighted_kappa_quadratic": 0.818006
       },
       {
-        "annotator_a": "subagent_b_measure_applicability",
-        "annotator_b": "subagent_c_phase_fit",
+        "annotator_a": "annotator_b_measure_applicability",
+        "annotator_b": "annotator_c_phase_fit",
         "exact_agreement": 0.793333,
         "within_one_grade_agreement": 0.953333,
         "spearman_correlation": 0.720094,
         "weighted_kappa_quadratic": 0.704561
       },
       {
-        "annotator_a": "subagent_b_measure_applicability",
-        "annotator_b": "subagent_d_conservative_strict_positive",
+        "annotator_a": "annotator_b_measure_applicability",
+        "annotator_b": "annotator_d_conservative_strict_positive",
         "exact_agreement": 0.825,
         "within_one_grade_agreement": 0.97,
         "spearman_correlation": 0.762365,
         "weighted_kappa_quadratic": 0.777456
       },
       {
-        "annotator_a": "subagent_b_measure_applicability",
-        "annotator_b": "subagent_e_negative_control",
+        "annotator_a": "annotator_b_measure_applicability",
+        "annotator_b": "annotator_e_negative_control",
         "exact_agreement": 0.803333,
         "within_one_grade_agreement": 0.978333,
         "spearman_correlation": 0.746112,
         "weighted_kappa_quadratic": 0.77597
       },
       {
-        "annotator_a": "subagent_c_phase_fit",
-        "annotator_b": "subagent_d_conservative_strict_positive",
+        "annotator_a": "annotator_c_phase_fit",
+        "annotator_b": "annotator_d_conservative_strict_positive",
         "exact_agreement": 0.836667,
         "within_one_grade_agreement": 0.983333,
         "spearman_correlation": 0.847167,
         "weighted_kappa_quadratic": 0.851781
       },
       {
-        "annotator_a": "subagent_c_phase_fit",
-        "annotator_b": "subagent_e_negative_control",
+        "annotator_a": "annotator_c_phase_fit",
+        "annotator_b": "annotator_e_negative_control",
         "exact_agreement": 0.856667,
         "within_one_grade_agreement": 0.981667,
         "spearman_correlation": 0.871584,
         "weighted_kappa_quadratic": 0.855803
       },
       {
-        "annotator_a": "subagent_d_conservative_strict_positive",
-        "annotator_b": "subagent_e_negative_control",
+        "annotator_a": "annotator_d_conservative_strict_positive",
+        "annotator_b": "annotator_e_negative_control",
         "exact_agreement": 0.86,
         "within_one_grade_agreement": 0.996667,
         "spearman_correlation": 0.84276,
@@ -147,8 +147,8 @@
     "negative_or_low_count": 510
   },
   "limitations": [
-    "Панель состоит из LLM-субагентов, а не из внешних людей-экспертов.",
-    "Метрики согласованности измеряют устойчивость этой панели, а не объективную истинность оценок.",
-    "До отдельного человеческого аудита пакет нужно описывать как gold-кандидат."
+    "The panel consists of independent LLM annotators, not external human experts.",
+    "Agreement metrics measure consistency inside this panel, not objective correctness of labels.",
+    "Until separate human audit is performed, describe the package as an adjudicated candidate dataset."
   ]
 }

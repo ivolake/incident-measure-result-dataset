@@ -1,6 +1,6 @@
-﻿# Annotation Protocol
+# Annotation Protocol
 
-## Unit of annotation
+## Unit Of Annotation
 
 Each annotation task contains:
 
@@ -15,7 +15,7 @@ The annotator assigns four grades:
 - `measure_applicability_grade`;
 - final `relevance_grade`.
 
-## Grade scale
+## Grade Scale
 
 | Grade | Interpretation |
 |---:|---|
@@ -24,9 +24,9 @@ The annotator assigns four grades:
 | 2 | Usable but partial, broad, conditional, or requiring local operational detail. |
 | 3 | Directly applicable, concrete, phase-aligned, and suitable as a strong positive. |
 
-## Five independent annotators
+## Five Independent LLM Annotators
 
-The five files in `data/annotations/subagent_annotations/` correspond to independent LLM annotator roles:
+The five files in `data/annotations/llm_panel/` correspond to independent LLM annotator roles:
 
 - `annotator_a.jsonl`: SOC response fit;
 - `annotator_b.jsonl`: measure applicability;
@@ -40,16 +40,16 @@ Each annotator saw the same review queue and produced a separate file. Annotator
 
 The review queue was designed to hide:
 
-- previous silver labels;
+- prior candidate labels;
 - model outputs;
 - reasons why a pair was sampled;
 - final adjudication decisions.
 
-The sampling audit is stored separately in `data/review_seed/gold_candidate_sampling_audit.jsonl` and should not be used as a model input.
+The sampling audit is stored separately in `data/review_audit/sampling_audit.jsonl` and must not be used as a model input.
 
 ## Adjudication
 
-Final labels in `external_relevance_annotations.jsonl` were produced from the five annotation files. The adjudication rule is recorded as:
+Final labels in `data/dataset/relevance_annotations.jsonl` were produced from the five annotation files. The adjudication rule is recorded as:
 
 ```text
 median_with_conservative_disagreement_downgrade_v1
@@ -57,7 +57,7 @@ median_with_conservative_disagreement_downgrade_v1
 
 The policy favors conservative downgrading when a measure is broad, conditional, mismatched to the response phase, or lacks a direct operational action.
 
-## Evidence fields
+## Evidence Fields
 
 The adjudicated annotation rows include:
 

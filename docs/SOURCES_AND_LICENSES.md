@@ -1,12 +1,12 @@
-﻿# Sources and Licenses
+# Sources and Licenses
 
 This repository contains source-derived cybersecurity incident and measure records. The dataset package preserves source identifiers, locators, and text provenance where available.
 
-## Practical license note
+## Practical License Note
 
-The repository code and documentation can be licensed separately from the source-derived data. The data records may remain subject to upstream source terms. Before public release, review the upstream licenses and terms for every source represented in `data/external_gold_seed_8_8_35/external_sources.jsonl`.
+The repository code and documentation can be licensed separately from the source-derived data. The data records may remain subject to upstream source terms. Before public release, review the upstream licenses and terms for every source represented in `data/dataset/sources.jsonl`.
 
-## Source families represented
+## Source Families Represented
 
 The package includes records derived or normalized from sources such as:
 
@@ -14,9 +14,9 @@ The package includes records derived or normalized from sources such as:
 - MITRE ATT&CK mitigation data;
 - MITRE D3FEND-style defense technique data;
 - RE&CT-style response action data;
-- internal gold annotation and adjudication records.
+- internal LLM-panel annotation and adjudication records.
 
-## Recommended repository licensing approach
+## Recommended Repository Licensing Approach
 
 Use a split notice:
 

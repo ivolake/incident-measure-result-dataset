@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .io import read_jsonl
+from .validation import validate_predictions
 
 
 def _dcg(grades: list[int]) -> float:
@@ -20,8 +21,9 @@ def _ndcg(ranked_grades: list[int], ideal_grades: list[int], k: int) -> float | 
 
 
 def evaluate_predictions(dataset_dir: str | Path, predictions_path: str | Path, k_values: tuple[int, ...] = (1, 3, 5)) -> dict[str, Any]:
+    validate_predictions(dataset_dir, predictions_path)
     predictions = read_jsonl(predictions_path)
-    annotations = read_jsonl(Path(dataset_dir) / "external_relevance_annotations.jsonl")
+    annotations = read_jsonl(Path(dataset_dir) / "relevance_annotations.jsonl")
     grades = {(str(row["query_id"]), str(row["measure_id"])): int(row["relevance_grade"]) for row in annotations}
     grades_by_query: dict[str, list[int]] = defaultdict(list)
     for row in annotations:
