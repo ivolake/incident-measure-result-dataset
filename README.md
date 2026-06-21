@@ -40,6 +40,8 @@ docs/
 src/incident_measure_result/
 scripts/
 tests/
+DATA_NOTICE.md
+LICENSE
 ```
 
 ## Quick Start
@@ -119,4 +121,6 @@ The included BM25 implementation is aligned with the source project lexical base
 
 ## Citation and Reuse
 
-No formal citation has been assigned yet. If you use this repository, cite the repository URL and preserve the provenance files. Source texts and source-derived records may be subject to upstream terms. See `docs/SOURCES_AND_LICENSES.md`.
+No formal citation has been assigned yet. If you use this repository, cite the repository URL and preserve the provenance files.
+
+Code and repository documentation are covered by `LICENSE`. Dataset files under `data/` contain source-derived records and are subject to the upstream notices summarized in `DATA_NOTICE.md` and `docs/SOURCES_AND_LICENSES.md`. Preserve attribution, upstream notices, and source provenance when redistributing the dataset or derived records.

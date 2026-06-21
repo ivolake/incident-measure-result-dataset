@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "incident-measure-result-dataset"
 version = "0.1.0"
-description = "Gold-candidate incident-to-measure relevance dataset with ranking utilities."
+description = "Adjudicated incident-to-measure relevance dataset with ranking utilities."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Incident Measure Result Dataset Maintainers" }]

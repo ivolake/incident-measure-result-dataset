@@ -69,12 +69,18 @@ def test_hash_validation_rejects_modified_dataset(tmp_path: Path) -> None:
 
 
 def test_hygiene_validation_rejects_internal_patterns(tmp_path: Path) -> None:
-    dataset_copy = tmp_path / "dataset"
-    shutil.copytree(DATASET, dataset_copy)
-    (dataset_copy / "agreement_report.md").write_text("sub" + "agent_\n", encoding="utf-8")
+    patterns = [
+        "sub" + "agent_",
+        "external" + "_eval",
+        "si" + "lver",
+    ]
+    for index, pattern in enumerate(patterns):
+        dataset_copy = tmp_path / f"dataset_{index}"
+        shutil.copytree(DATASET, dataset_copy)
+        (dataset_copy / "agreement_report.md").write_text(pattern + "\n", encoding="utf-8")
 
-    with pytest.raises(ValueError, match="Forbidden internal patterns"):
-        validate_dataset(dataset_copy)
+        with pytest.raises(ValueError, match="Forbidden internal patterns"):
+            validate_dataset(dataset_copy)
 
 
 def test_prediction_validation_rejects_bad_rows(tmp_path: Path) -> None:

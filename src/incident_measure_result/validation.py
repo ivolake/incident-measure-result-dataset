@@ -23,12 +23,15 @@ REQUIRED_DATASET_FILES = (
 FORBIDDEN_INTERNAL_PATTERNS = (
     "_".join(("8", "8", "35")),
     ".".join(("8", "8", "35")),
-    "external_" + "gold_seed",
-    "external_" + "gold" + "_review_seed",
-    "examples" + "/" + "external_eval",
-    "examples" + "\\" + "external_eval",
+    "external_" + "go" + "ld_seed",
+    "external_" + "go" + "ld" + "_review_seed",
+    "external" + "_eval",
+    "external" + "-eval",
+    "examples" + "/" + "external" + "_eval",
+    "examples" + "\\" + "external" + "_eval",
     "co" + "dex_" + "adjudicator",
     "sub" + "agent_",
+    "si" + "lver",
 )
 
 

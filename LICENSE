@@ -2,7 +2,7 @@
 
 The Python code and repository documentation in this repository may be reused under the MIT License unless a file states otherwise.
 
-The dataset files are source-derived records and adjudicated labels. Source-derived text, source metadata, and provenance records may be subject to upstream source terms. See docs/SOURCES_AND_LICENSES.md before redistributing the data.
+The dataset files are source-derived records and adjudicated labels. Source-derived text, source metadata, and provenance records may be subject to upstream source terms. See DATA_NOTICE.md and docs/SOURCES_AND_LICENSES.md before redistributing the data.
 
 MIT License for repository code and documentation
 

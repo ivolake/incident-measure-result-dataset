@@ -2,26 +2,42 @@
 
 This repository contains source-derived cybersecurity incident and measure records. The dataset package preserves source identifiers, locators, and text provenance where available.
 
-## Practical License Note
+See the root `DATA_NOTICE.md` for the short reuse notice that should travel with redistributed dataset records.
 
-The repository code and documentation can be licensed separately from the source-derived data. The data records may remain subject to upstream source terms. Before public release, review the upstream licenses and terms for every source represented in `data/dataset/sources.jsonl`.
+## Repository Licensing Structure
+
+- Repository code and documentation: covered by `LICENSE`, unless a file states otherwise.
+- Dataset records under `data/`: source-derived records plus repository-created annotation and audit metadata.
+- Source-derived text and metadata remain subject to upstream source terms.
 
 ## Source Families Represented
 
 The package includes records derived or normalized from sources such as:
 
-- VCDB-style incident summaries;
-- MITRE ATT&CK mitigation data;
-- MITRE D3FEND-style defense technique data;
-- RE&CT-style response action data;
-- internal LLM-panel annotation and adjudication records.
+- VCDB incident summaries used as query text;
+- MITRE ATT&CK mitigation and technique-derived records;
+- MITRE D3FEND defensive technique-derived records;
+- ATC RE&CT response action-derived records;
+- repository-created LLM-panel annotation, adjudication, and audit records.
 
-## Recommended Repository Licensing Approach
+## Upstream Terms Summary
 
-Use a split notice:
+| Source family | Practical obligation |
+|---|---|
+| VCDB | Treat source-derived incident records conservatively under Creative Commons Attribution-ShareAlike 4.0 International: preserve attribution, indicate modifications where applicable, and use compatible ShareAlike terms for adapted material. |
+| MITRE ATT&CK | Reproduce MITRE copyright and license notices when redistributing ATT&CK-derived records. Do not imply ATT&CK guarantees defensive coverage. |
+| MITRE D3FEND | Preserve D3FEND project notices and applicable license terms for D3FEND-derived records. |
+| ATC RE&CT | Preserve ATC RE&CT project notices and applicable Apache-2.0 terms for RE&CT-derived records. |
+| Repository annotation layer | Report as LLM-panel adjudicated labels, not as external human expert labels. |
 
-- repository code: permissive license selected by the repository owner;
-- documentation: selected by the repository owner;
-- source-derived data: governed by upstream source terms and provenance records.
+## Provenance Files
 
-Do not claim a single broad license for all data until upstream terms have been checked.
+Primary provenance is stored in:
+
+- `data/dataset/sources.jsonl`;
+- `data/dataset/queries.jsonl`;
+- `data/dataset/measure_corpus.jsonl`;
+- `data/dataset/eval_manifest.json`;
+- `docs/PROVENANCE.md`.
+
+Preserve these records when redistributing the dataset or publishing derivative datasets.

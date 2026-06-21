@@ -4,8 +4,8 @@
   "source_role_counts": {
     "measure_corpus": 3,
     "query_only": 2,
-    "silver": 1,
-    "adjudicated": 1
+    "adjudicated": 1,
+    "candidate_labels": 1
   },
   "query_count": 30,
   "measure_count": 25,
@@ -47,8 +47,8 @@
     "recovery": 1
   },
   "limitations": [
-    "Gold-слой согласован по пяти независимым разметкам LLM-субагентов.",
-    "Это не внешняя человеческая экспертная панель; это ограничение нужно явно указывать.",
-    "Очередь разметки скрывает выходы моделей, прежние серебряные оценки и причины отбора пар."
+    "The adjudicated label layer was produced from five independent LLM annotations.",
+    "This is not an external human expert panel; state that limitation when reporting results.",
+    "The review queue hid model outputs, prior candidate labels, and pair-selection reasons from annotators."
   ]
 }
